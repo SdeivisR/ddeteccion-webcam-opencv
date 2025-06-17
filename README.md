@@ -1,1 +1,1 @@
-# ddeteccion-webcam-opencv
+# deteccion-webcam-opencv
