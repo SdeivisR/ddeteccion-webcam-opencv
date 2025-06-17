@@ -38,18 +38,26 @@ while True:
         print("No se pudo obtener el frame de la cámara.")
         break
 
-    # Convertir a gris
+    # Convertir a gris para la detección de rostros y Canny
     gris = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    # Detectar rostros
+    # --- Detección de rostros (Tu código original) ---
     caras = cara_cascade.detectMultiScale(gris, 1.1, 4)
 
-    # Dibujar rectángulos
+    # Dibujar rectángulos en el frame original
     for (x, y, w, h) in caras:
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2) # Cambié el color a verde para diferenciar
 
-    # Mostrar el frame
-    cv2.imshow("Webcam", frame)
+    # --- Implementación de Canny ---
+    # Aplicar el detector de bordes Canny sobre la imagen en escala de grises
+    # Puedes ajustar los umbrales (100, 200) según lo necesites
+    bordes_canny = cv2.Canny(gris, 100, 200)
+
+    # Mostrar el frame con detección de rostros
+    cv2.imshow("Deteccion de Rostros (Webcam)", frame)
+
+    # Mostrar el frame con los bordes Canny
+    cv2.imshow("Bordes Canny", bordes_canny)
 
     # Salir con la tecla 'q'
     if cv2.waitKey(1) & 0xFF == ord('q'):
